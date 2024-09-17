@@ -16,7 +16,7 @@ function App() {
         }}
     >
         <ColoredContainer>
-        <BrowserRouter basename="/">
+        <BrowserRouter basename="/type-kwon-do">
             <Routes>
                 <Route path="/" element={<Menu />} />
                 <Route path="/run" element={<Run />} />
