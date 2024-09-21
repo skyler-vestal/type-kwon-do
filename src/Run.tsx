@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import LetterForm from "./components/LetterForm";
-import { AnswerData, FrequencyData } from "./types";
+import { AnswerData } from "./types";
 import EndScreen from "./components/EndScreen";
 
 interface Props {

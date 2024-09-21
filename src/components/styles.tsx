@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { Typography, TextField, TooltipProps, tooltipClasses, Tooltip } from "@mui/material";
+import { Typography, TextField } from "@mui/material";
 
 export const BLUE = '#007bff';
 export const WHITE = '#ffffff';

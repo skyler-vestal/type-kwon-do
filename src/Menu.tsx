@@ -2,16 +2,11 @@ import {
   Button,
   Divider,
   Stack,
-  TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Character } from "./types";
 import LetterMenu from "./components/LetterMenu";
-
-type Settings = {
-  rounds: number;
-};
 
 type Props = {
   letters: Character[][];

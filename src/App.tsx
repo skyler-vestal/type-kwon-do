@@ -3,6 +3,7 @@ import Menu from "./Menu";
 import Run from "./Run";
 import { Container } from "@mui/material";
 import { ColoredContainer } from "./components/styles";
+// @ts-ignore
 import kroman from "kroman";
 
 const disabledSyllables = ['', '댜', "쟈", "탸", "퍄", "햐", "됴", "툐"];
