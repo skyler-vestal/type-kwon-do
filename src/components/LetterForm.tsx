@@ -53,12 +53,12 @@ function LetterForm({ frequencyData, onAnswer, inReview, setInReview }: Props) {
 
 
     return (<>
-        <KoreanCharacter color={inReview ? '#E74C3C' : '#007BFF'}>
+        <KoreanCharacter color={inReview ? '#E74C3C' : BLUE}>
             {currentCharacter}
         </KoreanCharacter>
         <StyledTextField
             fullWidth
-            borderColor={inReview ? '#E74C3C' : '#007BFF'}
+            borderColor={inReview ? '#E74C3C' : BLUE}
             variant="outlined"
             value={answer}
             onKeyDown={e => {

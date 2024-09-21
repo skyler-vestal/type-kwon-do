@@ -13,3 +13,10 @@ export type TimeData = {
     startTime: Date;
     endTime: Date;
 }
+
+export type Character = {
+    letter: string;
+    roman: string;
+    disabled: boolean;
+    selected: boolean;
+}

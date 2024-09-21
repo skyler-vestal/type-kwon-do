@@ -1,5 +1,8 @@
-import styled from "@emotion/styled";
-import { Typography, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Typography, TextField, TooltipProps, tooltipClasses, Tooltip } from "@mui/material";
+
+export const BLUE = '#007bff';
+export const WHITE = '#ffffff';
 
 export const ColoredContainer = styled('div')`
   display: flex;
@@ -19,7 +22,7 @@ export const ColoredContainer = styled('div')`
 
 export const KoreanCharacter = styled(Typography)<{ color?: string }>`
   font-size: 3rem; /* Larger font size for emphasis */
-  color: ${({ color }) => color || '#007bff'}; /* Use the provided color or default to #007bff */
+  color: ${({ color }) => color || BLUE}; /* Use the provided color or default to #007bff */
   margin-bottom: 20px; /* Space between character and input box */
 `;
 
@@ -34,11 +37,11 @@ export const StyledTextField = styled(TextField)<{ borderColor?: string }>`
   }
 
   & label.Mui-focused {
-    color: ${({ borderColor }) => borderColor || '#007bff'};
+    color: ${({ borderColor }) => borderColor || BLUE};
   }
   & .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
-      border-color: ${({ borderColor }) => borderColor || '#007bff'};
+      border-color: ${({ borderColor }) => borderColor || BLUE};
     }
   }
 `;
