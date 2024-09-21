@@ -2,36 +2,27 @@ import { useEffect, useState } from "react";
 // @ts-ignore
 import kroman from "kroman";
 
-import { FrequencyData } from "../types";
-import { KoreanCharacter, StyledTextField } from "./styles";
+import { BLUE, KoreanCharacter, StyledTextField } from "./styles";
 
 interface Props {
-    frequencyData: FrequencyData,
+    letters: string[],
     inReview: boolean,
     onAnswer: (isCorrect: boolean) => void,
     setInReview: (value: boolean) => void,
 }
 
-function LetterForm({ frequencyData, onAnswer, inReview, setInReview }: Props) {
+function LetterForm({ letters, onAnswer, inReview, setInReview }: Props) {
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [currentCharacter, setCurrentCharacter] = useState<string>('');
     const [englishCharacter, setEnglishCharacter] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
     const [shouldCount, setShouldCount] = useState<boolean>(true);
 
-    function getCharacter() {
-        const num = Math.floor(Math.random() * (frequencyData.total + 2));
-        for (const key of Object.keys(frequencyData)) {
-            if (num < frequencyData[key].runningSum) {
-                return key;
-            }
-        }
-        throw new Error('No character found');
-    }
-
     function prepareRound() {
-        const char = getCharacter();
+        const char = letters[currentIndex + 1];
         setCurrentCharacter(char);
         setEnglishCharacter(kroman.parse(char));
+        setCurrentIndex(currentIndex + 1);
     }
 
     function submitAnswer(answer: string) {

@@ -21,7 +21,6 @@ const koreanSyllables = [
     ["ㅣ", "기", "니", "디", "리", "미", "비", "시", "이", "지", "치", "키", "티", "피", "히"],
     ["ㅐ", "개", "내", "대", "래", "매", "배", "새", "애", "재", "채", "캐", "태", "패", "해"]
 ].map((row) => row.map((char) => { const disabled = disabledSyllables.includes(char); return ({letter: char, roman: kroman.parse(char), disabled, selected: !disabled }); }));
-console.log(koreanSyllables);
 
 function App() {
     return (

@@ -6,12 +6,11 @@ import { AnswerData, FrequencyData } from "./types";
 import EndScreen from "./components/EndScreen";
 
 interface Props {
-  frequencyData: FrequencyData;
-  rounds: number;
+  letterList: string[];
 }
 
 function Run() {
-  const { frequencyData, rounds } = useLocation().state as Props;
+  const { letterList } = useLocation().state as Props;
 
   const [answerData, setAnswerData] = useState<AnswerData>({
     totalAnswered: 0,
@@ -33,9 +32,9 @@ function Run() {
 
   return (
     <>
-      {answerData.totalAnswered < rounds || inReview ? (
+      {answerData.totalAnswered < letterList.length || inReview ? (
         <LetterForm
-          frequencyData={frequencyData}
+          letters={letterList}
           onAnswer={onAnswer}
           inReview={inReview}
           setInReview={setInReview}

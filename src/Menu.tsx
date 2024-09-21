@@ -5,7 +5,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Character } from "./types";
 import LetterMenu from "./components/LetterMenu";
 
@@ -21,10 +21,6 @@ const getGrid = (letters: Character[][]) =>
   letters.map((row) => row.map((char) => ({ ...char })));
 
 function Menu({ letters }: Props) {
-  const [settings, setSettings] = useState<Settings>({
-    rounds: 5,
-  });
-
   const [charactersOpen, setCharactersOpen] = useState(false);
   const [grid, setGrid] = useState<Character[][]>(getGrid(letters));
 
@@ -37,6 +33,8 @@ function Menu({ letters }: Props) {
     });
   }
 
+  const generateLetterList = () => (grid.flatMap(row => row.filter(character => character.selected)).map(character => character.letter));
+
   return (
     <>
       <LetterMenu open={charactersOpen} letterGrid={grid} onClose={() => setCharactersOpen(false)} toggleLetter={toggleLetter} />
@@ -47,18 +45,9 @@ function Menu({ letters }: Props) {
               Customize
             </Button>
           }
-          <TextField
-            label="Guesses"
-            type="number"
-            value={settings.rounds}
-            onChange={(e) => {
-              const rounds = parseInt(e.target.value);
-              setSettings({ ...settings, rounds });
-            }}
-          />
         </Stack>
         <Divider />
-        <Link to="/run" state={{ rounds: settings.rounds }}>
+        <Link to="/run" state={{ letterList: generateLetterList() }}>
           <Button variant="contained">Start</Button>
         </Link>
       </Stack>
