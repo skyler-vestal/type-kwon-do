@@ -1,3 +1,4 @@
+// @ts-ignore
 import kroman from "kroman";
 
 const backupMap: Record<string, string[]> = {
