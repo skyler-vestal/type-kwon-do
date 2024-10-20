@@ -3,6 +3,7 @@ import {
   Divider,
   Stack,
 } from "@mui/material";
+import arrayShuffle from 'array-shuffle';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Character } from "./types";
@@ -28,7 +29,9 @@ function Menu({ letters }: Props) {
     });
   }
 
-  const generateLetterList = () => (grid.flatMap(row => row.filter(character => character.selected)).map(character => character.letter));
+  const generateLetterList = () => (arrayShuffle(grid.flatMap(row => row.filter(character => character.selected)).map(character => character.letter)));
+
+  const letterSelected = grid.some((row) => row.some((char) => char.selected));
 
   return (
     <>
@@ -42,8 +45,8 @@ function Menu({ letters }: Props) {
           }
         </Stack>
         <Divider />
-        <Link to="/run" state={{ letterList: generateLetterList() }}>
-          <Button variant="contained">Start</Button>
+        <Link to={letterSelected ? "/run" : "#"} state={{ letterList: generateLetterList() }}>
+          <Button variant="contained" disabled={!letterSelected}>Start</Button>
         </Link>
       </Stack>
     </>

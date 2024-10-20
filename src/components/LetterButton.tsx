@@ -12,7 +12,7 @@ function LetterButton({ char, onClick }: Props) {
 
     return (<Box
     sx={{
-      backgroundColor: (character.selected ? BLUE + "10" : WHITE),
+      backgroundColor: (character.selected ? BLUE + "1a" : WHITE),
       borderRadius: 1,
       aspectRatio: 1,
       width: "100%",

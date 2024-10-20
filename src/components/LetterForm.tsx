@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-// @ts-ignore
-import kroman from "kroman";
 
 import { BLUE, KoreanCharacter, StyledTextField } from "./styles";
+import getRomanized from "../lib/getRomanized";
 
 interface Props {
     letters: string[],
@@ -14,24 +13,26 @@ interface Props {
 function LetterForm({ letters, onAnswer, inReview, setInReview }: Props) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [currentCharacter, setCurrentCharacter] = useState<string>('');
-    const [englishCharacter, setEnglishCharacter] = useState<string>('');
+    const [englishCharacters, setEnglishCharacters] = useState<string[]>(['']);
     const [answer, setAnswer] = useState<string>('');
     const [shouldCount, setShouldCount] = useState<boolean>(true);
 
     function prepareRound() {
-        const char = letters[currentIndex + 1];
+        const char = letters[currentIndex];
         setCurrentCharacter(char);
-        setEnglishCharacter(kroman.parse(char));
+        setEnglishCharacters(getRomanized(char));
         setCurrentIndex(currentIndex + 1);
     }
 
     function submitAnswer(answer: string) {
-        const isCorrect = answer.toLowerCase() === englishCharacter.toLowerCase();
+        const isCorrect = englishCharacters.includes(answer.toLowerCase()) ||
+            answer === englishCharacters.join(', ') ||
+            answer === englishCharacters.join(',');
         if (shouldCount) {
             onAnswer(isCorrect);
         }
         setInReview(!isCorrect);
-        setAnswer(isCorrect ? '' : englishCharacter)
+        setAnswer(isCorrect ? '' : englishCharacters.join(', '));
         setShouldCount(isCorrect);
         if (isCorrect) {
             prepareRound();
