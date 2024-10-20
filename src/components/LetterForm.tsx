@@ -1,30 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { BLUE, KoreanCharacter, StyledTextField } from "./styles";
-import getRomanized from "../lib/getRomanized";
+import { Character } from "../types";
 
 interface Props {
-    letters: string[],
+    characters: Character[],
     inReview: boolean,
     onAnswer: (isCorrect: boolean) => void,
     setInReview: (value: boolean) => void,
 }
 
-function LetterForm({ letters, onAnswer, inReview, setInReview }: Props) {
+function LetterForm({ characters, onAnswer, inReview, setInReview }: Props) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [currentCharacter, setCurrentCharacter] = useState<string>('');
-    const [englishCharacters, setEnglishCharacters] = useState<string[]>(['']);
+    const [currentCharacter, setCurrentCharacter] = useState<Character>(characters[0]);
     const [answer, setAnswer] = useState<string>('');
     const [shouldCount, setShouldCount] = useState<boolean>(true);
 
     function prepareRound() {
-        const char = letters[currentIndex];
+        const newIndex = currentIndex + 1;
+        const char = characters[newIndex];
         setCurrentCharacter(char);
-        setEnglishCharacters(getRomanized(char));
-        setCurrentIndex(currentIndex + 1);
+        setCurrentIndex(newIndex);
     }
 
     function submitAnswer(answer: string) {
+        const englishCharacters = currentCharacter?.roman;
         const isCorrect = englishCharacters.includes(answer.toLowerCase()) ||
             answer === englishCharacters.join(', ') ||
             answer === englishCharacters.join(',');
@@ -39,14 +39,9 @@ function LetterForm({ letters, onAnswer, inReview, setInReview }: Props) {
         }
     }
 
-    useEffect(() => {
-        prepareRound();
-    }, []);
-
-
     return (<>
         <KoreanCharacter color={inReview ? '#E74C3C' : BLUE}>
-            {currentCharacter}
+            {currentCharacter?.letter}
         </KoreanCharacter>
         <StyledTextField
             fullWidth

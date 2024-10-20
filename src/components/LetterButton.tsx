@@ -8,7 +8,7 @@ export interface Props {
 }
 
 function LetterButton({ char, onClick }: Props) {
-    const character = char ?? { letter: "", roman: "", disabled: false, selected: false };
+    const character: Character = char ?? { letter: "", roman: [""], disabled: false, selected: false };
 
     return (<Box
     sx={{
@@ -20,7 +20,7 @@ function LetterButton({ char, onClick }: Props) {
     }}
   >
     <Tooltip
-      title={character.disabled ? "Never Used" : character.roman}
+      title={character.disabled ? "Never Used" : character.roman.join(", ")}
       TransitionComponent={Fade}
     >
       <Button

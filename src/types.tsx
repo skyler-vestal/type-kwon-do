@@ -16,7 +16,7 @@ export type TimeData = {
 
 export type Character = {
     letter: string;
-    roman: string;
+    roman: string[];
     disabled: boolean;
     selected: boolean;
 }

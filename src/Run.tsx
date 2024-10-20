@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import LetterForm from "./components/LetterForm";
-import { AnswerData } from "./types";
+import { AnswerData, Character } from "./types";
 import EndScreen from "./components/EndScreen";
 
 interface Props {
-  letterList: string[];
+  characterList: Character[];
 }
 
 function Run() {
-  const { letterList } = useLocation().state as Props;
+  const { characterList } = useLocation().state as Props;
 
   const [answerData, setAnswerData] = useState<AnswerData>({
     totalAnswered: 0,
@@ -32,9 +32,9 @@ function Run() {
 
   return (
     <>
-      {answerData.totalAnswered < letterList.length || inReview ? (
+      {answerData.totalAnswered < characterList.length || inReview ? (
         <LetterForm
-          letters={letterList}
+          characters={characterList}
           onAnswer={onAnswer}
           inReview={inReview}
           setInReview={setInReview}

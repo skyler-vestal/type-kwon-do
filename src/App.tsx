@@ -5,10 +5,11 @@ import { Container } from "@mui/material";
 import { ColoredContainer } from "./components/styles";
 // @ts-ignore
 import getRomanized from "./lib/getRomanized";
+import { Character } from "./types";
 
 const disabledSyllables = ['', '댜', "쟈", "탸", "퍄", "햐", "됴", "툐"];
 
-const koreanSyllables = [
+const koreanSyllables: Character[][] = [
     ["", "ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"],
     ["ㅏ", "가", "나", "다", "라", "마", "바", "사", "아", "자", "차", "카", "타", "파", "하"],
     ["ㅑ", "갸", "냐", "댜", "랴", "먀", "뱌", "샤", "야", "쟈", "챠", "캬", "탸", "퍄", "햐"],
@@ -21,7 +22,7 @@ const koreanSyllables = [
     ["ㅡ", "그", "느", "드", "르", "므", "브", "스", "으", "즈", "츠", "크", "트", "프", "흐"],
     ["ㅣ", "기", "니", "디", "리", "미", "비", "시", "이", "지", "치", "키", "티", "피", "히"],
     ["ㅐ", "개", "내", "대", "래", "매", "배", "새", "애", "재", "채", "캐", "태", "패", "해"]
-].map((row) => row.map((char) => { const disabled = disabledSyllables.includes(char); return ({letter: char, roman: getRomanized(char).join(", "), disabled, selected: !disabled }); }));
+].map((row) => row.map((char) => { const disabled = disabledSyllables.includes(char); return ({letter: char, roman: getRomanized(char), disabled, selected: !disabled }); }));
 
 function App() {
     return (

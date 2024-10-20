@@ -2,7 +2,7 @@
 import kroman from "kroman";
 
 const backupMap: Record<string, string[]> = {
-    "ᄀ": ["g", "k"],
+    "ㄱ": ["g", "k"],
     "ㄴ": ["n"],
     "ㄷ": ["d", "t"], 
     "ㄹ": ["r", "l"],

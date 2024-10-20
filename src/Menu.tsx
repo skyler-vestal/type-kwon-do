@@ -29,7 +29,7 @@ function Menu({ letters }: Props) {
     });
   }
 
-  const generateLetterList = () => (arrayShuffle(grid.flatMap(row => row.filter(character => character.selected)).map(character => character.letter)));
+  const generateCharacterList = () => (arrayShuffle(grid.flatMap(row => row.filter(character => character.selected))));
 
   const letterSelected = grid.some((row) => row.some((char) => char.selected));
 
@@ -45,7 +45,7 @@ function Menu({ letters }: Props) {
           }
         </Stack>
         <Divider />
-        <Link to={letterSelected ? "/run" : "#"} state={{ letterList: generateLetterList() }}>
+        <Link to={letterSelected ? "/run" : "#"} state={{ characterList: generateCharacterList() }}>
           <Button variant="contained" disabled={!letterSelected}>Start</Button>
         </Link>
       </Stack>
