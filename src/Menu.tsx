@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import arrayShuffle from 'array-shuffle';
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Character } from "./types";
 import LetterMenu from "./components/LetterMenu";
 
@@ -13,12 +13,10 @@ type Props = {
   letters: Character[][];
 };
 
-const getGrid = (letters: Character[][]) =>
-  letters.map((row) => row.map((char) => ({ ...char })));
-
 function Menu({ letters }: Props) {
   const [charactersOpen, setCharactersOpen] = useState(false);
-  const [grid, setGrid] = useState<Character[][]>(getGrid(letters));
+  const [grid, setGrid] = useState<Character[][]>(letters);
+  
 
   function toggleLetter(row: number, col: number, value?: boolean) {
     setGrid((prevGrid) => {
@@ -33,9 +31,25 @@ function Menu({ letters }: Props) {
 
   const letterSelected = grid.some((row) => row.some((char) => char.selected));
 
+
+  function getGridForWindow() {
+    return window.innerWidth < window.innerHeight ? 
+    grid[0].map((_, colIndex) => grid.map(row => row[colIndex]))
+      : grid;
+  }
+
+  useEffect(() => {
+  function updateGrid() {
+    setGrid(getGridForWindow());
+  }
+    updateGrid();
+    window.addEventListener("resize", updateGrid);
+    return () => window.removeEventListener("resize", updateGrid);
+  }, []);
+
   return (
     <>
-      <LetterMenu open={charactersOpen} letterGrid={grid} onClose={() => setCharactersOpen(false)} toggleLetter={toggleLetter} />
+      <LetterMenu open={charactersOpen} characterGrid={grid} onClose={() => setCharactersOpen(false)} toggleLetter={toggleLetter} />
       <Stack spacing={4}>
         <Stack spacing={1}>
           {

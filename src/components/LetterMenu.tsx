@@ -1,5 +1,4 @@
-import { Modal, Grid2 as Grid, styled } from "@mui/material";
-import { ColoredContainer } from "./styles";
+import { Modal, Grid2 as Grid, styled, Box } from "@mui/material";
 import { Character } from "../types";
 import LetterButton from "./LetterButton";
 
@@ -19,51 +18,55 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
 export interface Props {
   open: boolean;
-  letterGrid: Character[][];
+  characterGrid: Character[][];
   onClose: () => void;
   toggleLetter: (row: number, col: number, value?: boolean) => void;
 }
 
-function LetterMenu({ letterGrid, open, onClose, toggleLetter }: Props) {
+function LetterMenu({ characterGrid, open, onClose, toggleLetter }: Props) {                                                                                                                                                                                                                                                                                                
+
   function toggleRow(row: number) {
-    const newValue = letterGrid[row].some((char) => !char.disabled && !char.selected);
-    [...Array(letterGrid[row].length)].forEach((_, index) => {
+    console.log(characterGrid[row].map(char => char.letter));
+    const newValue = characterGrid[row].some((char) => !char.disabled && !char.selected);
+    [...Array(characterGrid[row].length)].forEach((_, index) => {
       toggleLetter(row, index, newValue);
     });
   }
 
   function toggleColumn(col: number) {
-    const newValue = letterGrid.some((row) => !row[col].disabled && !row[col].selected);
-    [...Array(letterGrid.length)].forEach((_, index) => {
+    const newValue = characterGrid.some((row) => !row[col].disabled && !row[col].selected);
+    [...Array(characterGrid.length)].forEach((_, index) => {
       toggleLetter(index, col, newValue);
     });
   }
 
   function toggleAll() {
-    const newValue = letterGrid.some((row) => row.some((char) => !char.disabled && !char.selected));
-    letterGrid.map((row, i) => row.map((_, j) => toggleLetter(i, j, newValue)));
+    const newValue = characterGrid.some((row) => row.some((char) => !char.disabled && !char.selected));
+    characterGrid.map((row, i) => row.map((_, j) => toggleLetter(i, j, newValue)));
   }
 
   return (
-    <Modal open={open} onClose={() => onClose()}>
-      <ColoredContainer
-        style={{
-          width: "50%",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+    // <Modal sx={{display: 'flex', 
+    // paddingY: '20px',
+    // paddingX: '60px', overflow: 'scroll'}} open={open} onClose={() => onClose()}>
+      <Box
+        sx={{
+          padding: '20px',
+          backgroundColor: "#ffffff",
+          border: '1px solid #007bff',
+          borderRadius: '12px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
         }}
       >
-        <Grid container style={{ width: "100%", height: "100%" }}>
+        <Grid container sx={{ height: "100%" }}>
           <StyledGrid container wrap="nowrap">
-            {Array.from({ length: letterGrid[0].length + 1 }).map(
+            {Array.from({ length: characterGrid[0].length + 1 }).map(
               (_, index) => (
                 <LetterButton onClick={() => index ? toggleColumn(index - 1) : toggleAll()}/>
               )
             )}
           </StyledGrid>
-          {letterGrid.map((row, rowIndex) => (
+          {characterGrid.map((row, rowIndex) => (
             <StyledGrid container wrap="nowrap">
               <LetterButton onClick={() => toggleRow(rowIndex)} />
               {row.map((char, columnIndex) => (
@@ -75,8 +78,8 @@ function LetterMenu({ letterGrid, open, onClose, toggleLetter }: Props) {
             </StyledGrid>
           ))}
         </Grid>
-      </ColoredContainer>
-    </Modal>
+      </Box>
+    //</Modal>
   );
 }
 

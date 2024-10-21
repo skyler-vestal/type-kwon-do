@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import LetterForm from "./components/LetterForm";
@@ -19,10 +19,6 @@ function Run() {
 
   const [startTime] = useState(new Date());
   const [inReview, setInReview] = useState(false);
-
-  useEffect(() => {
-    console.log(answerData);
-  }, [answerData]);
 
   const onAnswer = (isCorrect: boolean) =>
     setAnswerData((oldData) => ({

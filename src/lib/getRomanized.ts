@@ -9,7 +9,7 @@ const backupMap: Record<string, string[]> = {
     "ㅁ": ["m"], 
     "ㅂ": ["b", "p"], 
     "ㅅ": ["s"], 
-    "ㅇ": ["ng"], 
+    "ㅇ": ["ng", ""], 
     "ㅈ": ["j"], 
     "ㅊ": ["ch"], 
     "ㅋ": ["k"], 

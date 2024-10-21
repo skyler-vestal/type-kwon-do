@@ -16,7 +16,6 @@ function LetterButton({ char, onClick }: Props) {
       borderRadius: 1,
       aspectRatio: 1,
       width: "100%",
-      minWidth: "20px",
     }}
   >
     <Tooltip
@@ -31,14 +30,7 @@ function LetterButton({ char, onClick }: Props) {
       >
         <Typography
           color={character.disabled ? "#CCCCCC" : BLUE}
-          sx={{
-            fontSize: {
-              xs: "8px",
-              sm: "12px",
-              md: "16px",
-              lg: "20px",
-            },
-          }}
+          fontSize='32px'
         >
           {character.letter}
         </Typography>
